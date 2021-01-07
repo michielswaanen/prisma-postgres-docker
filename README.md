@@ -1,7 +1,7 @@
 # Typescript + NodeJS + Prisma + PostgreSQL
 
 
-## Start Example
+## Run
 ```
 1. 👉 yarn install
 
@@ -14,7 +14,14 @@
 3. ✔️ READY TO RECEIVE REQUESTS!
 ```
 
-## Prisma
+## Edit
+You must first generate the Prisma client library before you can edit this example. 
+You can generate the Prisma client by executing the following command:
+```
+👉 yarn run prisma generate
+```
+
+## Prisma Commands
 ```
 # Initialize Prisma in project
 1. 👉 yarn run prisma init 
@@ -24,4 +31,7 @@
 
 # Alter Prisma data
 3. 👉 yarn run prisma studio
+
+# Generate Prisma client library
+4. 👉 yarn run prisma generate
 ```
