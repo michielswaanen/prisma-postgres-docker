@@ -1,5 +1,10 @@
 # Typescript + NodeJS + Prisma + PostgreSQL + Docker
 
+## Routes
+If you want to add data to your database run `yarn run prisma studio`
+```
+ > GET /users/
+```
 
 ## Run
 ```
