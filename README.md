@@ -1,4 +1,4 @@
-# Typescript + NodeJS + Prisma + PostgreSQL
+# Typescript + NodeJS + Prisma + PostgreSQL + Docker
 
 
 ## Run
