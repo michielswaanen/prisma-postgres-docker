@@ -1,9 +1,12 @@
 # Typescript + NodeJS + Prisma + PostgreSQL + Docker
 
 ## Routes
-If you want to add data to your database run `yarn run prisma studio`
+Add data to your database by running `yarn run prisma studio`
 ```
- > GET /users/
+Domain:
+http://localhost:8080
+
+> GET /users/
 ```
 
 ## Run
