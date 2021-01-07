@@ -1,4 +1,4 @@
-# Typescript + NodeJS + Prisma + PostgreSQL + Docker
+# Prisma Boilerplate with Docker & PostgreSQL
 
 ## Routes
 Add data to your database by running `yarn run prisma studio`
