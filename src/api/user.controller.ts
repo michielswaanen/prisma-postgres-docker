@@ -15,6 +15,7 @@ class UserController {
     const router: Router = express.Router();
 
     router.get('/', this.read);
+    router.post('/', this.add);
 
     return router;
   }
@@ -32,6 +33,26 @@ class UserController {
     });
 
     res.status(200).send(users);
+  }
+
+  public async add(req: Request, res: Response) {
+
+    const {email, name} = req.body;
+
+    const user = await prisma.user.create({
+      data: {
+        email: email,
+        name: name,
+        posts: {
+          create: {
+            content: 'Content',
+            title: 'Title'
+          }
+        }
+      }
+    });
+
+    res.status(201).send(user);
   }
 }
 
