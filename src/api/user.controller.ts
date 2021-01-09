@@ -13,7 +13,8 @@ class UserController {
     const router: Router = express.Router();
 
     router.get('/', this.read.bind(this));
-    router.post('/', this.add.bind(this));
+    router.post('/', this.create.bind(this));
+    router.patch('/:id', this.update.bind(this));
 
     return router;
   }
@@ -33,8 +34,8 @@ class UserController {
     res.status(200).send(users);
   }
 
-  public async add(req: Request, res: Response) {
-    const {email, name} = req.body;
+  public async create(req: Request, res: Response) {
+    const { email, name } = req.body;
 
     const user = await this.database.user.create({
       data: {
@@ -61,6 +62,23 @@ class UserController {
     });
 
     res.status(201).send(user);
+  }
+
+  public async update(req: Request, res: Response) {
+    const { id } = req.params;
+    const { name, email } = req.body;
+
+    const user = await this.database.user.update({
+      data: {
+        email: email,
+        name: name
+      },
+      where: {
+        id: Number(id)
+      },
+    });
+
+    res.status(200).send(user);
   }
 }
 
