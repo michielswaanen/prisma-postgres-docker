@@ -1,27 +1,25 @@
+import express, { Request, Response, Router } from "express";
 import { PrismaClient } from '@prisma/client';
-import express, { Application, Request, Response, Router } from "express";
-
-const prisma = new PrismaClient();
 
 class UserController {
 
-  private readonly prisma: PrismaClient;
+  private readonly database: PrismaClient;
 
-  public constructor(prisma: PrismaClient) {
-    this.prisma = prisma;
+  public constructor(database: PrismaClient) {
+    this.database = database;
   }
 
   public getRoutes() {
     const router: Router = express.Router();
 
-    router.get('/', this.read);
-    router.post('/', this.add);
+    router.get('/', this.read.bind(this));
+    router.post('/', this.add.bind(this));
 
     return router;
   }
 
   public async read(req: Request, res: Response) {
-    const users = await prisma.user.findMany({
+    const users = await this.database.user.findMany({
       select: {
         email: true,
         posts: {
@@ -36,10 +34,9 @@ class UserController {
   }
 
   public async add(req: Request, res: Response) {
-
     const {email, name} = req.body;
 
-    const user = await prisma.user.create({
+    const user = await this.database.user.create({
       data: {
         email: email,
         name: name,
@@ -47,6 +44,17 @@ class UserController {
           create: {
             content: 'Content',
             title: 'Title'
+          }
+        }
+      },
+      select: {
+        name: true,
+        email: true,
+        posts: {
+          select: {
+            content: true,
+            title: true,
+            published: true
           }
         }
       }

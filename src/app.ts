@@ -1,8 +1,8 @@
 import { Server } from "http";
 import express, { Application, json } from "express";
 import config from "./config/config";
-import { PrismaClient } from '@prisma/client'
 import UserController from "./api/user.controller";
+import { PrismaClient } from '@prisma/client';
 
 class ServerApplication {
 
@@ -10,10 +10,10 @@ class ServerApplication {
   private readonly server: Server;
   private readonly database: PrismaClient;
 
-  public constructor() {
+  public constructor(database: PrismaClient) {
     this.app = express();
     this.server = new Server(this.app);
-    this.database = new PrismaClient();
+    this.database = database;
     this.initializeMiddleware();
     this.initializeControllers();
   }
