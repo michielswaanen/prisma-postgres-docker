@@ -16,7 +16,7 @@
     "@prisma/cli": "^2.14.0"
   },
   "scripts": {
-    "start": "nodemon",
+    "start": "yarn migrate && nodemon",
     "migrate": "yarn run prisma migrate dev --preview-feature"
   }
 }

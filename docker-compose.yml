@@ -4,7 +4,9 @@ services:
     restart: always
     build: .
     volumes:
-      - ./:/app
+      - .:/app
+      - /app/node_modules  # Don't sync this folder to host machine
+      - /app/build         # Don't sync this folder to host machine
     ports:
       - '8080:8080'
     depends_on:
