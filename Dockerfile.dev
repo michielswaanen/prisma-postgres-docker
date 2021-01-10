@@ -10,6 +10,6 @@ ENV DATABASE_URL="postgresql://postgres:12345@database:5432/database?schema=publ
 
 RUN yarn install
 
-COPY . .
+# COPY not needed since docker-compose will sync automatically using volumes
 
 CMD ["yarn", "start"]

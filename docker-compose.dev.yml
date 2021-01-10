@@ -2,9 +2,13 @@ version: '3.8'
 services:
   server:
     restart: always
-    build: .
+    build:
+      dockerfile: Dockerfile.dev
+      context: .
     volumes:
-      - ./:/app
+      - .:/app
+#      - /app/node_modules  # Don't sync this folder to host machine
+#      - /app/build         # Don't sync this folder to host machine
     ports:
       - '8080:8080'
     depends_on:
