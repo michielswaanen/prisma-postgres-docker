@@ -15,6 +15,7 @@ class UserController {
     router.get('/', this.read.bind(this));
     router.post('/', this.create.bind(this));
     router.patch('/:id', this.update.bind(this));
+    router.delete('/:id', this.delete.bind(this));
 
     return router;
   }
@@ -22,6 +23,7 @@ class UserController {
   public async read(req: Request, res: Response) {
     const users = await this.database.user.findMany({
       select: {
+        id: true,
         email: true,
         posts: {
           include: {
@@ -77,6 +79,38 @@ class UserController {
         id: Number(id)
       },
     });
+
+    res.status(200).send(user);
+  }
+
+  public async delete(req: Request, res: Response) {
+    const { id } = req.params;
+
+    const userFound = await this.database.user.count({ where: { id: Number(id) } });
+
+    if (!userFound)
+      throw Error(`User doesn't exists!`);
+
+    const profiles = await this.database.profile.count({ where: { user: { id: Number(id) } } });
+
+    if (profiles > 0)
+      await this.database.profile.delete({ where: { userId: Number(id) } });
+
+    const posts = await this.database.post.findMany({
+      where: {
+        author: { id: Number(id) }
+      }, select: {
+        id: true
+      }
+    });
+
+    if (posts) {
+      for (let post of posts) {
+        await this.database.post.delete({ where: { id: post.id } });
+      }
+    }
+
+    const user = await this.database.user.delete({ where: { id: Number(id) } });
 
     res.status(200).send(user);
   }
