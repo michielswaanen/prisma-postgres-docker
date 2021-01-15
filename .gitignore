@@ -2,5 +2,5 @@
 .vscode
 
 node_modules
-docker volume rm $(docker volume ls -q)
 migrations
+build
