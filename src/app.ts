@@ -24,6 +24,10 @@ class ServerApplication {
     });
   }
 
+  public getApplication(): Application {
+    return this.app
+  }
+
   public initializeControllers() {
     const userController = new UserController(this.database);
 

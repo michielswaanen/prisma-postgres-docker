@@ -1,0 +1,8 @@
+version: '3.0'
+services:
+  testing:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_PASSWORD=12345
+    ports:
+      - '5432:5432'
